@@ -131,16 +131,16 @@ const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, 
               }
             }
           }}
-          className="space-y-6 flex flex-col items-center"
+          className="space-y-6 flex flex-col items-center px-4"
         >
           <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>
             <motion.span 
               animate={{ y: [0, -4, 0], opacity: [0.7, 1, 0.7] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="text-[10px] md:text-xs font-mono font-bold tracking-[0.5em] block transition-colors duration-700"
-              style={{ color: colors.textMuted }}
+              style={{ color: colors.accent }}
             >
-              {item.label}
+              HI, I'M LIAM
             </motion.span>
           </motion.div>
           
@@ -148,22 +148,32 @@ const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, 
             <motion.h1 
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-              className="text-6xl md:text-8xl lg:text-[10rem] font-display font-black tracking-tighter leading-[0.9] uppercase drop-shadow-sm text-center transition-colors duration-700"
+              className="text-5xl md:text-7xl lg:text-[8rem] font-display font-black tracking-tighter leading-[0.9] uppercase drop-shadow-sm text-center transition-colors duration-700"
               style={{ color: colors.text }}
             >
-              BUILT BY<br/>LIAM
+              CREATIVE<br/>DIRECTOR
             </motion.h1>
           </motion.div>
 
-          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>
+          <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }} className="max-w-2xl text-center mt-4">
             <motion.p 
-              animate={{ y: [0, -4, 0], opacity: [0.7, 1, 0.7] }}
+              animate={{ y: [0, -4, 0], opacity: [0.8, 1, 0.8] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
-              className="text-sm md:text-lg font-sans font-bold tracking-[0.2em] uppercase text-center transition-colors duration-700"
+              className="text-sm md:text-lg font-sans font-medium leading-relaxed transition-colors duration-700"
               style={{ color: colors.textMuted }}
             >
-              Crafting digital experiences
+              Welcome to <strong style={{ color: colors.text }}>Built by Liam</strong>. I craft immersive digital experiences, interactive web applications, and bold brand identities.
             </motion.p>
+            
+            <motion.div 
+              className="mt-12 flex flex-col items-center gap-3"
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            >
+              <span className="text-[10px] md:text-xs font-sans font-bold tracking-[0.2em] uppercase" style={{ color: colors.accent }}>
+                Scroll to explore
+              </span>
+            </motion.div>
           </motion.div>
         </motion.div>
       )}
@@ -209,7 +219,7 @@ const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, 
 
           {/* View Project - Fades and slides in on hover */}
           <div className="mt-4 flex items-center justify-center gap-3 opacity-0 translate-y-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-100 group-hover:translate-y-0">
-            <span className="text-xs md:text-sm font-sans font-bold uppercase tracking-[0.2em] relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-300 group-hover:after:w-full" style={{ color: colors.accent }}>View Case Study</span>
+            <span className="text-xs md:text-sm font-sans font-bold uppercase tracking-[0.2em] relative after:content-[''] after:absolute after:-bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-500 after:ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:after:w-full" style={{ color: colors.accent }}>View Case Study</span>
             <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" style={{ color: colors.accent }} />
           </div>
         </button>
@@ -526,19 +536,16 @@ export default function App() {
                     </div>
                   )}
 
-                  <div className="pt-12 mt-auto">
+                  <div className="pt-12 mt-auto flex justify-center">
                     <a 
                       href={selectedProject.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group inline-flex items-center justify-center gap-4 w-full py-6 rounded-2xl text-white font-bold tracking-widest uppercase transition-all duration-300 hover:scale-[1.02]"
-                      style={{
-                        backgroundColor: colors.accent,
-                        boxShadow: `0 20px 40px rgba(39,39,42,0.2)`
-                      }}
+                      className="group inline-flex items-center justify-center gap-3 text-sm font-sans font-bold uppercase tracking-[0.2em] relative after:content-[''] after:absolute after:-bottom-2 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-500 after:ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:after:w-full"
+                      style={{ color: colors.accent }}
                     >
-                      Visit Live Site
-                      <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-2" />
+                      View Case Study
+                      <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-2" />
                     </a>
                   </div>
                 </motion.div>
