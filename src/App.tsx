@@ -140,7 +140,7 @@ const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, 
               className="text-[10px] md:text-xs font-mono font-bold tracking-[0.5em] block transition-colors duration-700"
               style={{ color: colors.accent }}
             >
-              HI, I'M LIAM
+              LIAM DORAN — PORTFOLIO '26
             </motion.span>
           </motion.div>
           
@@ -151,7 +151,7 @@ const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, 
               className="text-5xl md:text-7xl lg:text-[8rem] font-display font-black tracking-tighter leading-[0.9] uppercase drop-shadow-sm text-center transition-colors duration-700"
               style={{ color: colors.text }}
             >
-              CREATIVE<br/>DIRECTOR
+              CREATIVE<br/>PORTFOLIO
             </motion.h1>
           </motion.div>
 
@@ -198,7 +198,7 @@ const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, 
             className="block text-[10px] md:text-xs font-mono font-bold tracking-[0.5em] transition-all duration-500 group-hover:text-zinc-800 group-hover:-translate-y-2 group-hover:tracking-[0.6em]"
             style={{ color: colors.textMuted }}
           >
-            {item.label}
+            {item.label} {isFocused && <span className="md:hidden opacity-50 ml-2">— TAP TO VIEW</span>}
           </motion.span>
           
           {/* Project Title with Hover Underline and Processing Animation */}
@@ -217,8 +217,12 @@ const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, 
             <span className="absolute bottom-0 left-0 w-0 h-[4px] md:h-[8px] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:w-full" style={{ backgroundColor: colors.accent }}></span>
           </motion.h2>
 
-          {/* View Project - Fades and slides in on hover */}
-          <div className="mt-4 flex items-center justify-center gap-3 opacity-0 translate-y-6 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:opacity-100 group-hover:translate-y-0">
+          {/* View Project - Fades and slides in on hover (Desktop) or when focused (Mobile) */}
+          <div 
+            className={`mt-4 flex items-center justify-center gap-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] 
+              ${isFocused && !isLoading ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'} 
+              md:opacity-0 md:translate-y-6 md:group-hover:opacity-100 md:group-hover:translate-y-0`}
+          >
             <span className="text-xs md:text-sm font-sans font-bold uppercase tracking-[0.2em] relative after:content-[''] after:absolute after:-bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-500 after:ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:after:w-full" style={{ color: colors.accent }}>View Case Study</span>
             <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" style={{ color: colors.accent }} />
           </div>
@@ -230,6 +234,10 @@ const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, 
           href={item.href} 
           target="_blank" 
           rel="noopener noreferrer" 
+          onMouseEnter={() => {
+            initAudio();
+            playHover();
+          }}
           className={`flex flex-col items-center group space-y-6 ${isFocused && !isLoading ? 'pointer-events-auto' : ''}`}
         >
           <motion.span 
@@ -239,7 +247,7 @@ const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, 
             className="block text-[10px] md:text-xs font-mono font-bold tracking-[0.5em] transition-all duration-500 group-hover:text-zinc-800 group-hover:-translate-y-2 group-hover:tracking-[0.6em]"
             style={{ color: colors.textMuted }}
           >
-            {item.label}
+            {item.label} {isFocused && <span className="md:hidden opacity-50 ml-2">— TAP TO START</span>}
           </motion.span>
           <motion.h2 
             initial={{ opacity: 0, y: 30 }}
@@ -253,6 +261,16 @@ const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, 
               something.
             </span>
           </motion.h2>
+
+          {/* Contact CTA - Fades and slides in on hover (Desktop) or when focused (Mobile) */}
+          <div 
+            className={`mt-4 flex items-center justify-center gap-3 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] 
+              ${isFocused && !isLoading ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'} 
+              md:opacity-0 md:translate-y-6 md:group-hover:opacity-100 md:group-hover:translate-y-0`}
+          >
+            <span className="text-xs md:text-sm font-sans font-bold uppercase tracking-[0.2em] relative after:content-[''] after:absolute after:-bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-500 after:ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:after:w-full" style={{ color: colors.accent }}>Get in touch</span>
+            <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" style={{ color: colors.accent }} />
+          </div>
         </a>
       )}
     </motion.div>
