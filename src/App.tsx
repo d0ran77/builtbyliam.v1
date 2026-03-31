@@ -556,7 +556,7 @@ export default function App() {
 
       <div 
         ref={scrollContainerRef}
-        className="h-screen w-full overflow-y-auto snap-y snap-mandatory font-sans select-none overflow-x-hidden transition-colors duration-700"
+        className="h-screen w-full overflow-y-auto overscroll-none snap-y snap-mandatory font-sans select-none overflow-x-hidden transition-colors duration-700"
         onClick={initAudio}
         style={{ backgroundColor: colors.base }}
       >
