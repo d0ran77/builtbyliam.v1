@@ -13,13 +13,16 @@ const initAudio = () => {
   }
 };
 
-const playTone = (freq: number, type: OscillatorType, duration: number, vol: number) => {
+const playTone = (freq: number, type: OscillatorType, duration: number, vol: number, endFreq?: number) => {
   if (!audioCtx) return;
   try {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
     osc.type = type;
     osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+    if (endFreq) {
+      osc.frequency.exponentialRampToValueAtTime(endFreq, audioCtx.currentTime + duration);
+    }
     gain.gain.setValueAtTime(vol, audioCtx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
     osc.connect(gain);
@@ -31,9 +34,9 @@ const playTone = (freq: number, type: OscillatorType, duration: number, vol: num
   }
 };
 
-const playSnap = () => playTone(120, 'triangle', 0.15, 0.1);
-const playHover = () => playTone(600, 'sine', 0.05, 0.02);
-const playDrawerOpen = () => playTone(300, 'sine', 0.2, 0.05);
+const playSnap = () => playTone(150, 'sine', 0.1, 0.08, 40); // Soft thud
+const playHover = () => playTone(1200, 'sine', 0.02, 0.01, 800); // Subtle click
+const playDrawerOpen = () => playTone(200, 'sine', 0.15, 0.06, 60); // Deeper thud
 
 // --- SCRAMBLE TEXT COMPONENT ---
 const ScrambleText = ({ text, isFocused }: { text: string, isFocused: boolean }) => {
@@ -74,7 +77,7 @@ const NeumorphicCloud = ({ className, animateProps, delay, flip, colors }: { cla
         transform: flip ? 'scaleX(-1)' : 'none',
         willChange: 'transform, opacity',
         // Tighter, more balanced drop shadows to prevent the "uneven" detached look
-        filter: `drop-shadow(10px 10px 20px ${colors.darkShadow}) drop-shadow(-10px -10px 20px ${colors.lightShadow})`
+        filter: `drop-shadow(15px 15px 30px ${colors.cloudShadowDark}) drop-shadow(-15px -15px 30px ${colors.cloudShadowLight})`
       }}
       animate={animateProps}
       transition={{ duration: 40, repeat: Infinity, repeatType: "reverse", ease: "easeInOut", delay }}
@@ -380,7 +383,7 @@ export default function App() {
       label: 'WORK_02', 
       href: 'https://talkwithliam.co.uk',
       description: 'A professional psychotherapy practice platform based in Hull, specializing in Transactional Analysis. Features a custom booking system, reflective journal, and interactive structural analysis tools.',
-      detailedContent: 'Built with the "Quiet Presence" framework, Talk with Liam is a masterclass in digital stewardship. The site replaces traditional therapy "marketing" with a sophisticated, architectural atmosphere that favors structural whitespace and industrial textures. Designed to anchor a professional practice in Hull and East Yorkshire, it features a custom-built "Breathe Room" for somatic grounding and a library of AI-free reflections. The result is a digital consulting room that feels safe, stable, and intentionally silent—positioning the practitioner as a verified local authority in a cluttered professional landscape.',
+      detailedContent: 'Built with the "Quiet Presence" framework, Talk with Liam is a masterclass in digital stewardship. The site replaces traditional therapy "marketing" with a sophisticated, architectural atmosphere that favors structural whitespace and industrial textures. Designed to anchor a professional practice in Hull and East Yorkshire, it features a custom-built "Breathe Room" for somatic grounding and a library of deeply human, curated reflections. The result is a digital consulting room that feels safe, stable, and intentionally silent—positioning the practitioner as a verified local authority in a cluttered professional landscape.',
       role: 'Lead Developer & Founder',
       tech: ['HTML5', 'Vanilla JS', 'Tailwind CSS', 'Netlify', 'JSON-LD', 'No-Database'],
       year: '2026'
@@ -623,20 +626,33 @@ export default function App() {
           {/* Neumorphic Floating Clouds */}
           <NeumorphicCloud 
             className="top-[5%] left-[-10%] w-[400px] h-[200px] md:w-[700px] md:h-[350px]" 
-            animateProps={{ x: [0, 100, 0], y: [0, -20, 0], opacity: [0.8, 1, 0.8] }} 
+            animateProps={{ x: [0, 100, 0], y: [0, -20, 0], opacity: [0.9, 1, 0.9] }} 
             delay={0} 
             colors={colors}
           />
           <NeumorphicCloud 
+            className="top-[20%] left-[15%] w-[300px] h-[150px] md:w-[500px] md:h-[250px]" 
+            animateProps={{ x: [0, -60, 0], y: [0, 40, 0], opacity: [0.8, 0.95, 0.8] }} 
+            delay={8} 
+            colors={colors}
+          />
+          <NeumorphicCloud 
+            className="top-[10%] right-[10%] w-[250px] h-[125px] md:w-[400px] md:h-[200px]" 
+            animateProps={{ x: [0, 40, 0], y: [0, -20, 0], opacity: [0.7, 0.9, 0.7] }} 
+            delay={12} 
+            flip 
+            colors={colors}
+          />
+          <NeumorphicCloud 
             className="top-[40%] right-[-10%] w-[500px] h-[250px] md:w-[800px] md:h-[400px]" 
-            animateProps={{ x: [0, -150, 0], y: [0, 50, 0], opacity: [0.7, 0.95, 0.7] }} 
+            animateProps={{ x: [0, -150, 0], y: [0, 50, 0], opacity: [0.85, 1, 0.85] }} 
             delay={5} 
             flip 
             colors={colors}
           />
           <NeumorphicCloud 
             className="bottom-[5%] left-[5%] w-[450px] h-[225px] md:w-[750px] md:h-[375px]" 
-            animateProps={{ x: [0, 80, 0], y: [0, -30, 0], opacity: [0.8, 1, 0.8] }} 
+            animateProps={{ x: [0, 80, 0], y: [0, -30, 0], opacity: [0.9, 1, 0.9] }} 
             delay={2} 
             colors={colors}
           />
