@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Mail, X } from 'lucide-react';
 import { motion, useSpring, useTransform, useMotionTemplate, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
+import Onboarding from './components/Onboarding';
 
 // --- AUDIO SETUP ---
 let audioCtx: AudioContext | null = null;
@@ -293,6 +294,9 @@ export default function App() {
   // Feature 2: Project Drawer State
   const [selectedProject, setSelectedProject] = useState<any>(null);
   const [isProcessingClick, setIsProcessingClick] = useState<number | null>(null);
+
+  // Feature 3: Onboarding Modal State
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const newIndex = Math.round(latest / vh);
@@ -684,10 +688,12 @@ export default function App() {
 
         {/* 4. NEUMORPHIC FLOATING ACTION BUTTON (Contact) */}
         <div className="fixed bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 z-50 pointer-events-none">
-          <a 
-            href="https://tally.so/r/2ErxqA" 
-            target="_blank"
-            rel="noopener noreferrer"
+          <button 
+            onClick={() => {
+              initAudio();
+              playDrawerOpen();
+              setShowOnboarding(true);
+            }}
             onMouseEnter={() => {
               initAudio();
               playHover();
@@ -701,9 +707,13 @@ export default function App() {
             aria-label="Contact Form"
           >
             <Mail size={24} className="group-hover:scale-110 transition-transform duration-300" />
-          </a>
+          </button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {showOnboarding && <Onboarding onClose={() => setShowOnboarding(false)} />}
+      </AnimatePresence>
     </>
   );
 }
