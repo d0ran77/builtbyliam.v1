@@ -91,7 +91,7 @@ const NeumorphicCloud = ({ className, animateProps, delay, flip, colors }: { cla
   );
 };
 
-const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, setSelectedProject, setIsProcessingClick, isProcessingClick }: any) => {
+const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, setSelectedProject, setIsProcessingClick, isProcessingClick, setShowOnboarding }: any) => {
   const isActive = activeIndex === index;
   
   const scale = useTransform(scrollY, (y: number) => {
@@ -234,10 +234,12 @@ const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, 
       )}
 
       {item.type === 'contact' && (
-        <a 
-          href={item.href} 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <button 
+          onClick={() => {
+            initAudio();
+            playDrawerOpen();
+            setShowOnboarding(true);
+          }}
           onMouseEnter={() => {
             initAudio();
             playHover();
@@ -275,7 +277,7 @@ const TunnelItem = ({ item, index, vh, scrollY, activeIndex, isLoading, colors, 
             <span className="text-xs md:text-sm font-sans font-bold uppercase tracking-[0.2em] relative after:content-[''] after:absolute after:-bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:bg-current after:transition-all after:duration-500 after:ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:after:w-full" style={{ color: colors.accent }}>Get in touch</span>
             <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform duration-300" style={{ color: colors.accent }} />
           </div>
-        </a>
+        </button>
       )}
     </motion.div>
   );
@@ -681,6 +683,7 @@ export default function App() {
               setSelectedProject={setSelectedProject}
               setIsProcessingClick={setIsProcessingClick}
               isProcessingClick={isProcessingClick}
+              setShowOnboarding={setShowOnboarding}
               initAudio={initAudio}
               playDrawerOpen={playDrawerOpen}
             />
