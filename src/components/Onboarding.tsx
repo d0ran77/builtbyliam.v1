@@ -153,13 +153,17 @@ export default function Onboarding({ onClose }: OnboardingProps) {
     setIsSubmitting(true);
 
     try {
-      const form = e.target as HTMLFormElement;
-      const data = new FormData(form);
+      const submitData = new URLSearchParams();
+      submitData.append('form-name', 'onboarding');
+      
+      Object.entries(formData).forEach(([key, value]) => {
+        submitData.append(key, value.toString());
+      });
       
       await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(data as any).toString()
+        body: submitData.toString()
       });
       
       setIsSuccess(true);
